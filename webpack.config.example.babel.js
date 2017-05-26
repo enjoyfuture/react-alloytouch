@@ -42,6 +42,7 @@ const webpackConfig = {
   entry: {
     index: ['./examples/index.js', webpackDevServer, hotDevServer],
     'pull-refresh': ['./examples/pull-refresh.js', webpackDevServer, hotDevServer],
+    'header-footer': ['./examples/header-footer.js', webpackDevServer, hotDevServer],
   },
 
   // 出口 让webpack把处理完成的文件放在哪里
@@ -112,6 +113,9 @@ const htmlwebpackPluginConfig = {
   },
   'pull-refresh': {
     title: '下拉刷新，上拉加载更多'
+  },
+  'header-footer': {
+    title: '带头部和底部的下拉刷新，上拉加载更多'
   }
 };
 

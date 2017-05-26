@@ -10,6 +10,9 @@ const Index = () => {
         <li>
           <a href="./pull-refresh.html" target="_blank">下拉刷新，上拉加载更多</a>
         </li>
+        <li>
+          <a href="./header-footer.html" target="_blank">带头部和底部的下拉刷新，上拉加载更多</a>
+        </li>
       </ol>
     </div>
   );

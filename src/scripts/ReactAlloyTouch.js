@@ -51,13 +51,21 @@ class ReactAlloyTouch extends Component {
   }
 
   componentDidMount() {
-    const {header, footer, wrapper, scroller} = this.refs;
+    const {header, footer, wrapper, scroller, alloyBody} = this.refs;
     const {options} = this.props;
+
+    if (header) {
+      alloyBody.style.top = `${header.scrollHeight}px`;
+    }
+
+    if (footer) {
+      alloyBody.style.bottom = `${footer.scrollHeight}px`;
+    }
+
     Transform(scroller, true);
 
     // 设置向下滑动时，滑动的最小值，如果采用translateY，则设置 y的最小值，如果不设置 min，则可以无限制的向下滑动
-    const min = wrapper.clientHeight - (header ? header.clientHeight : 0)
-      - (footer ? footer.clientHeight : 0) - scroller.scrollHeight;
+    const min = wrapper.clientHeight - scroller.scrollHeight;
 
     const alloyOptions = {
       touch: wrapper, // 反馈触摸的dom
@@ -81,10 +89,9 @@ class ReactAlloyTouch extends Component {
 
   componentDidUpdate() {
     // 每次页面数据更改后，需要重新设置 this.alloyTouch 的 min 值
-    const {header, footer, wrapper, scroller} = this.refs;
+    const {wrapper, scroller} = this.refs;
 
-    const min = wrapper.clientHeight - (header ? header.clientHeight : 0)
-      - (footer ? footer.clientHeight : 0) - scroller.scrollHeight;
+    const min = wrapper.clientHeight - scroller.scrollHeight;
     this.alloyTouch.setOption('min', min);
   }
 
@@ -131,10 +138,9 @@ class ReactAlloyTouch extends Component {
       const {disablePullUp} = this.props;
       const {loadMoreEl, loadMoreIconEl} = this.refs;
       const {style} = loadMoreEl;
-      const {header, footer, wrapper, scroller} = this.refs;
+      const {wrapper, scroller} = this.refs;
 
-      const min = wrapper.clientHeight - (header ? header.clientHeight : 0)
-        - (footer ? footer.clientHeight : 0) - scroller.scrollHeight;
+      const min = wrapper.clientHeight - scroller.scrollHeight;
 
       if (this.loadMoreState !== 'loading') {
         if (disablePullUp) {
@@ -179,9 +185,8 @@ class ReactAlloyTouch extends Component {
 
     // 加载更多
     if (loadMore && !disablePullUp) {
-      const {header, footer, wrapper, scroller} = this.refs;
-      const min = wrapper.clientHeight - (header ? header.clientHeight : 0)
-        - (footer ? footer.clientHeight : 0) - scroller.scrollHeight;
+      const {wrapper, scroller} = this.refs;
+      const min = wrapper.clientHeight - scroller.scrollHeight;
       if (value < min) {
         if (this.loadMoreState === 'enable') {
           this.loadMore(e);
@@ -307,13 +312,14 @@ class ReactAlloyTouch extends Component {
   // 选择加载更多
   renderLoadMore() {
     const {loadMoreText} = this.state;
-    const {loadMore, loadMoreProcessIcon, disablePullUp, pullUpText} = this.props;
+    const {enableText, loadMore, loadMoreProcessIcon, disablePullUp, pullUpText} = this.props;
     if (loadMore) {
       return (
         <div ref="loadMoreEl" className="alloy-load-more">
           <div ref="loadMoreIconEl"
                className={`alloy-load-more-icon${!loadMoreProcessIcon || disablePullUp ? ' hide' : ''}`}></div>
-          <div className="alloy-load-more-text">{disablePullUp ? pullUpText[3] : loadMoreText}</div>
+          {enableText ? (
+            <div className="alloy-load-more-text">{disablePullUp ? pullUpText[3] : loadMoreText}</div>) : null}
         </div>
       );
     }
@@ -329,20 +335,22 @@ class ReactAlloyTouch extends Component {
     return (
       <div className={`alloy-panel ${className}`}>
         {header ? (<div className="alloy-header" ref="header">{header}</div>) : null}
-        {
-          refresh ? (<div ref="refreshEl" className="alloy-refresh">
-            <div className="alloy-refresh-icon-wrapper">
-              <div ref="refreshIconEl" className="alloy-refresh-icon"></div>
+        <div ref="alloyBody" className="alloy-body">
+          {
+            refresh ? (<div ref="refreshEl" className="alloy-refresh">
+              <div className="alloy-refresh-icon-wrapper">
+                <div ref="refreshIconEl" className="alloy-refresh-icon"></div>
+              </div>
+              {enableText ? (<div className="alloy-refresh-text">{refreshText}</div>) : null}
+            </div>) : null
+          }
+          <div className="alloy-wrapper" ref="wrapper">
+            <div className="alloy-scroller" ref="scroller">
+              {children}
             </div>
-            {enableText ? (<div className="alloy-refresh-text">{refreshText}</div>) : null}
-          </div>) : null
-        }
-        <div className="alloy-wrapper" ref="wrapper">
-          <div className="alloy-scroller" ref="scroller">
-            {children}
           </div>
+          {this.renderLoadMore()}
         </div>
-        {this.renderLoadMore()}
         {footer ? (<div className="alloy-footer" ref="footer">{footer}</div>) : null}
       </div>
     );
