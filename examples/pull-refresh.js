@@ -11,8 +11,8 @@ class AlloyTouchSimple extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: 100,
-      hasMore: true
+      items: 30,
+      disablePullUp: false
     };
   }
 
@@ -26,7 +26,7 @@ class AlloyTouchSimple extends Component {
         if (result) {
           this.setState({
             items: 30,
-            hasMore: true
+            disablePullUp: false
           }, () => {
             resolve();
           });
@@ -51,7 +51,7 @@ class AlloyTouchSimple extends Component {
         if (result) {
           this.setState({
             items: this.state.items + 10,
-            hasMore: this.state.items <= 40
+            disablePullUp: this.state.items >= 60
           }, () => {
             resolve();
           });
@@ -64,7 +64,7 @@ class AlloyTouchSimple extends Component {
     }, () => {
       console.info('加载更多失败！');
     });
-  }
+  };
 
   handleTouchTap = (e) => {
     console.info('测试下拉刷新插件是否与 Tap 事件冲突');
@@ -72,7 +72,7 @@ class AlloyTouchSimple extends Component {
 
   render() {
     const contents = [];
-    const {items, hasMore} = this.state;
+    const {items, disablePullUp} = this.state;
 
     for (let i = items; i > 0; i--) {
       if (i < 10) {
@@ -83,16 +83,11 @@ class AlloyTouchSimple extends Component {
     }
 
     const props = {
-      maxAmplitude: 80,
-      debounceTime: 30,
-      throttleTime: 100,
-      deceleration: 0.001,
       refreshCallback: this.refreshCallback,
       loadMoreCallback: this.loadMoreCallback,
       refresh: true,
       loadMore: true,
-      hasMore,
-      enableText: true
+      disablePullUp,
     };
 
     return (

@@ -339,14 +339,14 @@
 
     // JSX-specific rules 以下为 jsx 规则
     "react/jsx-boolean-value": 2, // 该规则可以设置为两种情况，always 和 never ，设置为 always 如果 attribute 没有设置值，会警告；设为 never，如果 attribute 有一个 true 值，会警告 https://github.com/yannickcr/eslint-plugin-react/blob/master/docs/rules/jsx-boolean-value.md
-    "react/jsx-closing-bracket-location": 2, // 检测jsx tag 闭合书写规范
+    "react/jsx-closing-bracket-location": 0, // 检测jsx tag 闭合书写规范
     "react/jsx-curly-spacing": 2, // 检测赋值是否有空格，默认是不应该有空格的，但换行不检测，比如 <Hello name={firstname } />;
     "react/jsx-equals-spacing": [2, "never"], // 再给属性赋值时,是否在 = 前后加上空格
     "react/jsx-filename-extension": 0, // 后缀名，是否必须是 jsx
-    "react/jsx-first-prop-new-line": 2, // 第一个属性名是否在新的一行书写
+    "react/jsx-first-prop-new-line": 0, // 第一个属性名是否在新的一行书写
     "react/jsx-handler-names": 2, // 按照惯例,事件方法名前是否加上 handle
     "react/jsx-indent": [2, 2], // jsx 嵌套包裹缩进,默认用2个
-    "react/jsx-indent-props": [2, 2],// jsx语法换行缩进几个空格（或制表符）
+    "react/jsx-indent-props": [0, 2],// jsx语法换行缩进几个空格（或制表符）
     "react/jsx-key": 2, // 在循环中,组件应该设置不同的 key
     "react/jsx-max-props-per-line": 0, // jsx 每个属性应该写在单独一行（默认），也可以设置每行的个数
     "react/jsx-no-bind": 2, // 不必要的地方不使用bind

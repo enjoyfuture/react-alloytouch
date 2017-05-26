@@ -1,3 +1,4 @@
 # Ignore files
 .idea
 node_modules
+src/styles
