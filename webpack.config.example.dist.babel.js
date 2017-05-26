@@ -16,7 +16,10 @@ const webpackConfig = {
   // 入口文件 让webpack用哪个文件作为项目的入口
   entry: {
     index: ['./examples/index.js'],
-    simple: ['./examples/pull-refresh.js']
+    simple: ['./examples/simple.js'],
+    pull: ['./examples/pull.js'],
+    'header-footer': ['./examples/header-footer.js'],
+    carousel: ['./examples/carousel.js'],
   },
 
   // 出口 让webpack把处理完成的文件放在哪里
@@ -85,11 +88,20 @@ const {entry} = webpackConfig;
 // 为 HtmlwebpackPlugin 设置配置项，与 entry 键对应，根据需要设置其参数值
 const htmlwebpackPluginConfig = {
   index: {
-    title: 'React Pull Refresh 例子列表'
+    title: 'React AlloyTouch 例子'
   },
   simple: {
-    title: '基本用法'
-  }
+    title: 'React AlloyTouch 简单例子'
+  },
+  pull: {
+    title: '下拉刷新，上拉加载更多'
+  },
+  'header-footer': {
+    title: '带头部和底部的下拉刷新，上拉加载更多'
+  },
+  carousel: {
+    title: '轮播'
+  },
 };
 
 for (const key in entry) {

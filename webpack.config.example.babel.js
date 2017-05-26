@@ -41,8 +41,10 @@ const webpackConfig = {
   // 入口文件 让webpack用哪个文件作为项目的入口
   entry: {
     index: ['./examples/index.js', webpackDevServer, hotDevServer],
-    'pull-refresh': ['./examples/pull-refresh.js', webpackDevServer, hotDevServer],
+    simple: ['./examples/simple.js', webpackDevServer, hotDevServer],
+    pull: ['./examples/pull.js', webpackDevServer, hotDevServer],
     'header-footer': ['./examples/header-footer.js', webpackDevServer, hotDevServer],
+    carousel: ['./examples/carousel.js', webpackDevServer, hotDevServer],
   },
 
   // 出口 让webpack把处理完成的文件放在哪里
@@ -111,12 +113,18 @@ const htmlwebpackPluginConfig = {
   index: {
     title: 'React AlloyTouch 例子'
   },
-  'pull-refresh': {
+  simple: {
+    title: 'React AlloyTouch 简单例子'
+  },
+  pull: {
     title: '下拉刷新，上拉加载更多'
   },
   'header-footer': {
     title: '带头部和底部的下拉刷新，上拉加载更多'
-  }
+  },
+  carousel: {
+    title: '轮播'
+  },
 };
 
 for (const key in entry) {

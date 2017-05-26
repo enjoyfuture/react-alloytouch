@@ -3,3 +3,7 @@
 node_modules
 src/styles
 dist
+examples/header-footer.js
+gulp/publish.babel.js
+publish/
+!publish/package.json

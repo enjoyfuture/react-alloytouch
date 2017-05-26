@@ -8,64 +8,23 @@ This is a react component for AlloyTouch.
 npm install react-alloyTouch --save
 ```
 
-## Example
-
-```
-npm install
-gulp example
-```
-
-http://localhost:9090
-
-
-## Online Example
-
-http://reactjs-ui.github.io/react-alloyTouch/
-
-## Build Example
-第一次需要先执行前两步操作，再执行第三步。以后修改例子后，只需要执行第三步即可
-
-* 创建 gh-pages 分支，**在执行 git subtree add 命令之前，需确保 gh-pages 分支下至少存在一个文件**
-```
-git checkout -b gh-pages
-rm -rf *     //隐藏文件需要单独删除，结合命令 ls -a
-git add -A
-vim .gitignore //输入一些内容
-git add README.md
-git commit -m "init branch gh-pages"
-git push --set-upstream origin gh-pages
-git push
-git checkout master
-```
-
-* 把分支 gh-pages 添加到本地 subtree 中，执行该命令前，请确保 examples-dist 文件夹不存在
-
-```
-git subtree add --prefix=examples-dist origin gh-pages --squash
-```
-  
-* 生成在线 examples
-```
-gulp example:build
-git add -A examples-dist
-git commit -m "Update online examples"
-git subtree push --prefix=examples-dist origin gh-pages --squash
-git push
-```
-
 ## Usage
+
+### pull component
+
+#### example code
 
 ```javascript
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import ReactAlloyTouch from 'react-alloyTouch';
-import './sass/example.scss'; // 自己定义
+import {ReactPull} from 'react-alloyTouch';
+import './sass/example.scss'; // 自定义样式
 
 // 初始化 tapEvent 事件, 移动端
 injectTapEventPlugin();
 
-class AlloyTouchSimple extends Component {
+class ReactPullExample extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -149,24 +108,24 @@ class AlloyTouchSimple extends Component {
     };
 
     return (
-      <ReactAlloyTouch {...props}>
+      <ReactPull {...props}>
         <ol className="example-list">
           {contents.map((item) => {
             return item;
           })}
         </ol>
-      </ReactAlloyTouch>
+      </ReactPull>
     );
   }
 }
 
 render(
-  <AlloyTouchSimple />, document.getElementById('layout')
+  <ReactPullExample />, document.getElementById('layout')
 );
 
 ```
 
-## Options
+#### Options
 
 | 选项        | 类型   |  功能  |
 | --------   | ----- | ---- |
@@ -189,6 +148,96 @@ render(
 | disablePullUp  | PropTypes.bool | 对于上拉加载更多时，如果没有更多记录时，禁止上滑 |
 
 对于 AlloyTouch 组件选项 options 设置，看[官方说明](https://github.com/AlloyTeam/AlloyTouch)
+
+### Carousel Component
+
+#### example code
+
+```javascript
+import React, {Component} from 'react';
+import {render} from 'react-dom';
+import {ReactCarousel} from 'react-alloyTouch';
+import './sass/example.scss'; // 自定义样式
+
+const ReactCarouselExample = () => {
+
+  const items = [{
+    image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci1.jpg',
+    link: 'http://jd.com'
+  }, {
+    image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci2.jpg',
+  }, {
+    image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci3.jpg',
+    link: 'http://jd.com'
+  }, {
+    image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci4.jpg'
+  }];
+  return (
+    <ReactCarousel items={items}/>
+  );
+};
+
+render(
+  <ReactCarouselExample />, document.getElementById('layout')
+);
+
+```
+
+#### Options
+
+| 选项        | 类型   |  功能  |
+| --------   | ----- | ---- |
+| className | PropTypes.string| 自定义 className|
+| prefix | PropTypes.string| 样式前缀|
+| options | PropTypes.object| AlloyTouch 组件选项|
+| items | PropTypes.array| 轮播图|
+| active | PropTypes.number| 当前活动轮播图|
+| autoPlay | PropTypes.oneOfType([PropTypes.bool, PropTypes.number])| 是否自动播放|
+
+## Example
+
+```
+npm install
+gulp example
+```
+
+http://localhost:9090
+
+
+## Online Example
+
+http://reactjs-ui.github.io/react-alloyTouch/
+
+## Build Example
+第一次需要先执行前两步操作，再执行第三步。以后修改例子后，只需要执行第三步即可
+
+* 创建 gh-pages 分支，**在执行 git subtree add 命令之前，需确保 gh-pages 分支下至少存在一个文件**
+```
+git checkout -b gh-pages
+rm -rf *     //隐藏文件需要单独删除，结合命令 ls -a
+git add -A
+vim .gitignore //输入一些内容
+git add README.md
+git commit -m "init branch gh-pages"
+git push --set-upstream origin gh-pages
+git push
+git checkout master
+```
+
+* 把分支 gh-pages 添加到本地 subtree 中，执行该命令前，请确保 examples-dist 文件夹不存在
+
+```
+git subtree add --prefix=examples-dist origin gh-pages --squash
+```
+
+* 生成在线 examples
+```
+gulp example:build
+git add -A examples-dist
+git commit -m "Update online examples"
+git subtree push --prefix=examples-dist origin gh-pages --squash
+git push
+```
 
 ## Build
 

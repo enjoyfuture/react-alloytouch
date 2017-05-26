@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import ReactAlloyTouch from '../src/scripts/index';
+import ReactPull from '../src/scripts/ReactPull';
 import './sass/example.scss';
 
 // 初始化 tapEvent 事件, 移动端
 injectTapEventPlugin();
 
-class AlloyTouchSimple extends Component {
+class ReactPullExample extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -91,17 +91,17 @@ class AlloyTouchSimple extends Component {
     };
 
     return (
-      <ReactAlloyTouch {...props}>
+      <ReactPull {...props}>
         <ol className="example-list">
           {contents.map((item) => {
             return item;
           })}
         </ol>
-      </ReactAlloyTouch>
+      </ReactPull>
     );
   }
 }
 
 render(
-  <AlloyTouchSimple />, document.getElementById('layout')
+  <ReactPullExample />, document.getElementById('layout')
 );
