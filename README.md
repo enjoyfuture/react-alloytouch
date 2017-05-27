@@ -19,6 +19,7 @@ import React, {Component} from 'react';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {ReactPull} from 'react-alloytouch';
+import 'react-alloytouch/sass/pull.scss'; // 或者 import 'react-alloytouch/css/pull.css';
 import './sass/example.scss'; // 自定义样式
 
 // 初始化 tapEvent 事件, 移动端
@@ -157,6 +158,7 @@ render(
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import {ReactCarousel} from 'react-alloytouch';
+import 'react-alloytouch/sass/carousel.scss'; // 或者 import 'react-alloytouch/css/carousel.css';
 import './sass/example.scss'; // 自定义样式
 
 const ReactCarouselExample = () => {

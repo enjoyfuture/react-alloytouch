@@ -160,7 +160,7 @@
     "no-mixed-requires": 2, // require与其他变量声明应该不要放在一起
     "no-new-require": 2, // 不用对表达式 require 直接使用 new,例如 var appHeader = new require('app-header');
     "no-path-concat": 2, // 不要使用 __dirname 或 __filename 与字符串连接生成路径，应该使用 path.join(__dirname, "foo.scripts"); 或 path.resolve(__dirname, "foo.scripts");
-    "no-process-env": 2, // 在node环境中，不建议使用 process.env ，而使用 config 来配置
+    "no-process-env": 0, // 在node环境中，不建议使用 process.env ，而使用 config 来配置
     "no-process-exit": 2, // 不要直接调用 process.exit();
     "no-restricted-modules": 2, // 限制使用某些模块，比如 no-restricted-modules: [2, "fs"] ，不能使用fs模块
     "no-sync": 2, // 我们尽量使用异步方法来代替同步方法，比如操作文件等，

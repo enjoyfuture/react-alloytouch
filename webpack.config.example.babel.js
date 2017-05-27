@@ -71,7 +71,7 @@ const webpackConfig = {
       },
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader!postcss-loader?pack=cleaner!sass-loader?outputStyle=expanded'
+        use: ['style-loader', 'css-loader', 'postcss-loader?pack=cleaner', 'sass-loader?outputStyle=expanded'],
       }
     ]
   },

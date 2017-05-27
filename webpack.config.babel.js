@@ -1,15 +1,7 @@
 import path from 'path';
 import webpack from 'webpack';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import precss from 'precss';
 import autoprefixer from 'autoprefixer';
-
-// multiple extract instances
-const extractSass = new ExtractTextPlugin({
-  filename: 'css/[name].css',
-  disable: false,
-  allChunks: true
-});
 
 const webpackConfig = {
   devtool: 'source-map',
@@ -44,14 +36,6 @@ const webpackConfig = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: 'babel-loader',
-      },
-      {
-        test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'postcss-loader?pack=cleaner', 'sass-loader?outputStyle=expanded'],
-          publicPath: '/publish/dist'
-        })
       }
     ],
   },
@@ -62,7 +46,6 @@ const webpackConfig = {
     new webpack.optimize.AggressiveMergingPlugin(),
     //用来保证编译过程不出错
     new webpack.NoEmitOnErrorsPlugin(),
-    extractSass,
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production')

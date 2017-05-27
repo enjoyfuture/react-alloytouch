@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import AlloyTouch from './AlloyTouch';
 import Transform from 'alloytouch/transformjs/transform';
-import '../sass/index.scss';
 
 // 基于腾讯组件 https://github.com/AlloyTeam/AlloyTouch 实现
 class ReactAlloyTouch extends Component {

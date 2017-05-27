@@ -7,7 +7,7 @@ const $ = gulpLoadPlugins();
 
 gulp.task('copy-publish', () => {
   return gulp
-    .src(['README.md'])
+    .src(['README.md', 'sass/*'])
     .pipe($.copy('publish'))
 });
 

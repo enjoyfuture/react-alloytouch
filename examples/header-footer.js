@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import ReactPull from '../js/ReactPull';
+import '../sass/pull.scss';
 import './sass/example.scss';
 
 // 初始化 tapEvent 事件, 移动端

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import ReactAlloyTouch from '../js/index';
+import '../sass/index.scss';
 import './sass/example.scss';
 
 const ReactAlloyTouchExample = () => {
