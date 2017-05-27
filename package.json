@@ -27,8 +27,8 @@
     "prebuild:examples": "npm run clean:examples",
     "build:examples": "webpack --progress --colors --config webpack.config.example.dist.babel.js",
     "postbuild:examples": "gulp copy-eruda-dist",
-    "prepublish": "npm run build && gulp scss && gulp copy-publish",
-    "publish": "gulp publish"
+    "prebuild:publish": "npm run build && gulp scss && gulp copy-publish",
+    "build:publish": "gulp publish"
   },
   "dependencies": {
     "alloytouch": "^0.2.4",

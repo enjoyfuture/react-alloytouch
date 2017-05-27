@@ -10,7 +10,7 @@ npm install react-alloytouch --save
 
 ## Usage
 
-### pull component
+### Pull Component
 
 #### example code
 
@@ -198,7 +198,7 @@ render(
 
 ```
 npm install
-gulp example
+npm start
 ```
 
 http://localhost:9090
@@ -233,7 +233,7 @@ git subtree add --prefix=examples-dist origin gh-pages --squash
 3. 生成在线 examples
 
 ```
-gulp example:build
+npm run build:examples
 git add -A examples-dist
 git commit -m "Update online examples"
 git subtree push --prefix=examples-dist origin gh-pages --squash
@@ -243,13 +243,13 @@ git push
 ## Build
 
 ```
-gulp build
+npm run build
 ```
 
 ## Publish
 
 ```
-gulp publish
+npm run build:publish
 ```
 
 ## Issue
