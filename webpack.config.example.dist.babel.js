@@ -1,16 +1,24 @@
 import path from 'path';
 import webpack from 'webpack';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlwebpackPlugin from 'html-webpack-plugin';
 import precss from 'precss';
 import autoprefixer from 'autoprefixer';
 
 const appPath = path.resolve(__dirname, 'examples');
 
+// multiple extract instances
+const extractSass = new ExtractTextPlugin({
+  filename: 'css/[name].[chunkhash].css',
+  disable: false,
+  allChunks: true
+});
+
 const webpackConfig = {
   devtool: 'source-map', //生成 source map文件
   resolve: {
     //自动扩展文件后缀名
-    extensions: ['.js', '.jsx', '.css', '.json']
+    extensions: ['.js', '.jsx', '.scss']
   },
 
   // 入口文件 让webpack用哪个文件作为项目的入口
@@ -30,20 +38,30 @@ const webpackConfig = {
   },
 
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
-        loader: 'babel-loader',
         exclude: /node_modules/,
+        use: 'babel-loader',
       },
       {
         test: /\.scss$/,
-        loader: 'style-loader!css-loader!postcss-loader?pack=cleaner!sass-loader?outputStyle=expanded'
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: ['css-loader', 'postcss-loader?pack=cleaner', 'sass-loader?outputStyle=expanded'],
+          publicPath: '/dist'
+        })
       }
-    ]
+    ],
   },
 
   plugins: [
+    // http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
+    //用来优化生成的代码 chunk,合并相同的代码
+    new webpack.optimize.AggressiveMergingPlugin(),
+    //用来保证编译过程不出错
+    new webpack.NoEmitOnErrorsPlugin(),
+    extractSass,
     //http://dev.topheman.com/make-your-react-production-minified-version-with-webpack/
     new webpack.DefinePlugin({
       'process.env': {
@@ -53,6 +71,7 @@ const webpackConfig = {
     // http://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin
     // 相当于命令参数 --optimize-minimize
     new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true,
       compress: {
         warnings: true
       },
@@ -60,11 +79,8 @@ const webpackConfig = {
         except: [] // 设置不混淆变量名
       }
     }),
-    //用来优化生成的代码 chunk,合并相同的代码
-    new webpack.optimize.AggressiveMergingPlugin(),
-    //用来保证编译过程不出错
-    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.LoaderOptionsPlugin({
+      minimize: true,
       options: {
         postcss () {
           return {

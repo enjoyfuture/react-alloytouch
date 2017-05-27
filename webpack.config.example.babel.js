@@ -32,10 +32,11 @@ const webpackConfig = {
       poll: 1000
     },
     quiet: false, // 设为true，不把任何信息输出到控制台
+    open: true,
   },
   resolve: {
     //自动扩展文件后缀名
-    extensions: ['.js', '.jsx', '.css']
+    extensions: ['.js', '.jsx', '.scss']
   },
 
   // 入口文件 让webpack用哪个文件作为项目的入口
@@ -55,21 +56,18 @@ const webpackConfig = {
   },
 
   module: {
-    loaders: [
+    rules: [
+      // https://github.com/MoOx/eslint-loader
       {
         enforce: 'pre',
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'eslint-loader'
+        use: 'eslint-loader'
       },
       {
         test: /\.js$/,
-        loader: 'babel-loader',
         exclude: /node_modules/,
-      },
-      {
-        test: /\.css$/,
-        loader: 'style-loader!css-loader!postcss-loader?pack=cleaner'
+        use: 'babel-loader',
       },
       {
         test: /\.scss$/,

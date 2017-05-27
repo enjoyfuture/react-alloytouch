@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
-import ReactCarousel from '../src/scripts/ReactCarousel';
+import ReactCarousel from '../js/ReactCarousel';
 import './sass/example.scss';
 
 const ReactCarouselExample = () => {

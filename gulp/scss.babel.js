@@ -35,12 +35,12 @@ const postcssPlugins = [
  *
  */
 gulp.task('scss', () => {
-  return gulp.src('src/sass/*.scss')
+  return gulp.src('sass/*.scss')
     .pipe($.sourcemaps.init())
     .pipe($.sass.sync(scssOption).on('error', $.sass.logError))
     .pipe($.postcss(postcssPlugins))
     .pipe($.sourcemaps.write('./maps'))
-    .pipe(gulp.dest('src/styles'));
+    .pipe(gulp.dest('publish/css'));
 });
 
 // 检测样式加前缀

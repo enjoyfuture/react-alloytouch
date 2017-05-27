@@ -3,22 +3,16 @@ import gulp from 'gulp';
 import chalk from 'chalk';
 import gulpLoadPlugins from 'gulp-load-plugins';
 
-const $ = gulpLoadPlugins({
-  pattern: ['gulp-*', 'del']
-});
+const $ = gulpLoadPlugins();
 
-// 清理临时和打包目录
-gulp.task('clean-publish', () => {
-  return $.del(['publish/*', '!publish/package.json']);
-});
-
-gulp.task('copy-dist', ['build'], () => {
-  return gulp.src(['src/**', 'dist/**'])
-    .pipe(gulp.dest('publish'));
+gulp.task('copy-publish', () => {
+  return gulp
+    .src(['README.md'])
+    .pipe($.copy('publish'))
 });
 
 // 发布到 npm 中
-gulp.task('publish', ['copy-dist'], () => {
+gulp.task('publish', () => {
   const {exec} = childProcess;
   exec('cd publish && npm publish && cd ..', (error, stdout, stderr) => {
     if (error) {

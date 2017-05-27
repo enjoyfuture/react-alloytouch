@@ -5,7 +5,7 @@ This is a react component for AlloyTouch.
 ## Install
 
 ```
-npm install react-alloyTouch --save
+npm install react-alloytouch --save
 ```
 
 ## Usage
@@ -18,7 +18,7 @@ npm install react-alloyTouch --save
 import React, {Component} from 'react';
 import {render} from 'react-dom';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import {ReactPull} from 'react-alloyTouch';
+import {ReactPull} from 'react-alloytouch';
 import './sass/example.scss'; // 自定义样式
 
 // 初始化 tapEvent 事件, 移动端
@@ -156,7 +156,7 @@ render(
 ```javascript
 import React, {Component} from 'react';
 import {render} from 'react-dom';
-import {ReactCarousel} from 'react-alloyTouch';
+import {ReactCarousel} from 'react-alloytouch';
 import './sass/example.scss'; // 自定义样式
 
 const ReactCarouselExample = () => {
@@ -206,7 +206,7 @@ http://localhost:9090
 
 ## Online Example
 
-http://reactjs-ui.github.io/react-alloyTouch/
+http://reactjs-ui.github.io/react-alloytouch/
 
 ## Build Example
 第一次需要先执行前两步操作，再执行第三步。以后修改例子后，只需要执行第三步即可

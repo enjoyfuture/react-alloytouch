@@ -4,7 +4,6 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import opn from 'opn';
 import exampleConfig from '../webpack.config.example.babel';
-import exampleDistConfig from '../webpack.config.example.dist.babel';
 
 const $ = gulpLoadPlugins();
 const {webpackConfig, ip, port} = exampleConfig;
@@ -15,10 +14,7 @@ gulp.task('copy-eruda', () => {
 });
 
 // 运行 example
-gulp.task('example', () => {
-  gulp.start(['scss']);
-  gulp.watch('src/sass/*.scss', ['scss']);
-
+gulp.task('example', ['copy-eruda'], () => {
   // Start a webpack-dev-server
   const compiler = webpack(webpackConfig);
   new WebpackDevServer(compiler, webpackConfig.devServer)
@@ -34,16 +30,8 @@ gulp.task('example', () => {
     });
 });
 
-// 打包编译例子
-gulp.task('example:build', ['clean:example'], () => {
-  const compiler = webpack(exampleDistConfig);
-  // run webpack
-  compiler.run((err, stats) => {
-    if (err) {
-      throw new $.util.PluginError('example:build', err);
-    }
-    $.util.log('[example:build]', stats.toString({
-      colors: true
-    }));
-  });
+gulp.task('copy-eruda-dist', () => {
+  return gulp.src('node_modules/eruda/eruda.min.js')
+    .pipe(gulp.dest('examples-dist'));
 });
+

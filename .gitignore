@@ -1,7 +1,5 @@
 # Ignore files
 .idea
 node_modules
-src/styles
-dist
 publish
 !publish/package.json

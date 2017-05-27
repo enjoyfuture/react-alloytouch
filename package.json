@@ -1,6 +1,6 @@
 {
-  "name": "react-alloyTouch",
-  "version": "0.1.0",
+  "name": "react-alloytouch",
+  "version": "0.1.2",
   "author": {
     "name": "Linder Wang",
     "email": "linder0209@126.com",
@@ -11,10 +11,28 @@
     "react",
     "alloyTouch"
   ],
-  "main": "dist/index.js",
-  "scripts": {},
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "jsnext:main": "es/index.js",
+  "scripts": {
+    "start": "gulp example",
+    "clean": "rimraf publish/lib publish/dist publish/es",
+    "clean:examples": "rimraf examples-dist",
+    "build:commonjs": "cross-env BABEL_ENV=commonjs babel js --out-dir publish/lib",
+    "build:es": "cross-env BABEL_ENV=es babel js --out-dir publish/es",
+    "build:umd": "webpack --progress --colors --config webpack.config.babel.js --output-filename [name].js",
+    "build:umd:min": "webpack --progress --colors --config webpack.config.babel.js --output-filename [name].min.js --optimize-minimize",
+    "prebuild": "npm run clean",
+    "build": "npm run build:commonjs && npm run build:es && npm run build:umd && npm run build:umd:min",
+    "prebuild:examples": "npm run clean:examples",
+    "build:examples": "webpack --progress --colors --config webpack.config.example.dist.babel.js",
+    "postbuild:examples": "gulp copy-eruda-dist",
+    "prepublish": "npm run build && gulp scss && gulp copy-publish",
+    "publish": "gulp publish"
+  },
   "dependencies": {
     "alloytouch": "^0.2.4",
+    "eruda": "^1.2.3",
     "prop-types": "^15.5.10",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -31,15 +49,16 @@
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
+    "cross-env": "^5.0.0",
     "css-loader": "^0.28.2",
-    "del": "^2.2.2",
-    "eruda": "^1.2.3",
     "eslint": "3.19.0",
     "eslint-loader": "^1.7.1",
     "eslint-plugin-flowtype": "^2.33.0",
     "eslint-plugin-react": "^7.0.1",
+    "extract-text-webpack-plugin": "^2.1.0",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^4.0.0",
+    "gulp-copy": "^1.0.0",
     "gulp-load-plugins": "^1.5.0",
     "gulp-postcss": "^7.0.0",
     "gulp-sass": "^3.1.0",
@@ -63,11 +82,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reactjs-ui/react-alloyTouch.git"
+    "url": "git+https://github.com/reactjs-ui/react-alloytouch.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/reactjs-ui/react-alloyTouch/issues"
+    "url": "https://github.com/reactjs-ui/react-alloytouch/issues"
   },
-  "homepage": "https://github.com/reactjs-ui/react-alloyTouch#readme"
+  "homepage": "https://github.com/reactjs-ui/react-alloytouch#readme"
 }
