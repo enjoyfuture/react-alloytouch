@@ -16,7 +16,7 @@
   "jsnext:main": "es/index.js",
   "scripts": {
     "start": "gulp example",
-    "clean": "rimraf publish/lib publish/dist publish/es",
+    "clean": "rimraf publish/css publish/sass publish/lib publish/dist publish/es",
     "clean:examples": "rimraf examples-dist",
     "build:commonjs": "cross-env BABEL_ENV=commonjs babel js --out-dir publish/lib",
     "build:es": "cross-env BABEL_ENV=es babel js --out-dir publish/es",
