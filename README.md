@@ -217,12 +217,10 @@ http://reactjs-ui.github.io/react-alloytouch/
 ```
 git checkout -b gh-pages
 rm -rf *     //隐藏文件需要单独删除，结合命令 ls -a
-git add -A
 vim .gitignore //输入一些内容
 git add .
 git commit -m "init branch gh-pages"
 git push --set-upstream origin gh-pages
-git push
 git checkout master
 ```
 
