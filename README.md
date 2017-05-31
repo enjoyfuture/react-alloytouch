@@ -236,7 +236,7 @@ git subtree add --prefix=examples-dist origin gh-pages --squash
 
 ```
 npm run build:examples
-git add -A examples-dist
+git add examples-dist
 git commit -m "Update online examples"
 git subtree push --prefix=examples-dist origin gh-pages --squash
 git push
