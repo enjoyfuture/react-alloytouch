@@ -303,7 +303,7 @@
     // react rules，默认设置为报错 https://github.com/yannickcr/eslint-plugin-react
 
     "react/display-name": 0, // 是否检测需要为React Component 设置一个 displayName
-    "react/forbid-component-props": 2, // 禁止某些在组件上的属性，比如 className 等
+    "react/forbid-component-props": 0, // 禁止某些在组件上的属性，比如 className 等
     "react/forbid-elements": [2, {"forbid": [""] }], // 禁止使用某些标签
     "react/forbid-prop-types": 0, // 是否检测使用了React.PropTypes.any React.PropTypes.array 或 React.PropTypes.object，如果开启该规则，则不允许使用React.PropTypes 指定的类型，而用具体的类型来说明，默认该规则是关闭的
     "react/forbid-foreign-prop-types": 2, // 不要使用不相关的 PropTypes

@@ -256,8 +256,8 @@ npm run build:publish
 
 ## Issue
 
-https://github.com/reactjs-ui/react-alloyTouch/issues
+https://github.com/reactjs-ui/react-alloytouch/issues
 
-## Version
+## Change Log
 
 Please view [here](./CHANGELOG.md)

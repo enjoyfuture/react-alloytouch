@@ -50,16 +50,8 @@ class ReactAlloyTouch extends Component {
   }
 
   componentDidMount() {
-    const {header, footer, wrapper, scroller, alloyBody} = this.refs;
+    const {wrapper, scroller} = this.refs;
     const {options} = this.props;
-
-    if (header) {
-      alloyBody.style.top = `${header.scrollHeight}px`;
-    }
-
-    if (footer) {
-      alloyBody.style.bottom = `${footer.scrollHeight}px`;
-    }
 
     Transform(scroller, true);
 
@@ -84,6 +76,8 @@ class ReactAlloyTouch extends Component {
 
     // 初始化 alloyTouch 实例
     this.alloyTouch = new AlloyTouch(alloyOptions);
+
+    this.adjustPosition();
   }
 
   componentDidUpdate() {
@@ -92,6 +86,20 @@ class ReactAlloyTouch extends Component {
 
     const min = wrapper.clientHeight - scroller.scrollHeight;
     this.alloyTouch.setOption('min', min);
+
+    this.adjustPosition();
+  }
+
+  adjustPosition() {
+    const {header, footer, alloyBody} = this.refs;
+
+    if (header) {
+      alloyBody.style.top = `${header.scrollHeight}px`;
+    }
+
+    if (footer) {
+      alloyBody.style.bottom = `${footer.scrollHeight}px`;
+    }
   }
 
   // touch 开始时
