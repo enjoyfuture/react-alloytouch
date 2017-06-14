@@ -1,6 +1,6 @@
 {
   "name": "react-alloytouch",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "author": {
     "name": "Linder Wang",
     "email": "linder0209@126.com",
@@ -16,7 +16,7 @@
   "jsnext:main": "es/index.js",
   "scripts": {},
   "dependencies": {
-    "alloytouch": "^0.2.4"
+    "alloytouch": "^0.2.5"
   },
   "engines": {
     "node": ">=6.9.1"

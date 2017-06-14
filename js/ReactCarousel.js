@@ -13,6 +13,7 @@ class ReactAlloyTouch extends Component {
     items: PropTypes.array, // 轮播图
     active: PropTypes.number, // 当前活动轮播图
     autoPlay: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]), // 是否自动播放
+    events: PropTypes.object, // 自定义各种事件
   };
 
   static defaultProps = {
@@ -20,6 +21,7 @@ class ReactAlloyTouch extends Component {
     prefix: 'carousel',
     active: 0,
     autoPlay: 4000, // 默认一4秒播放一次
+    events: {},
   };
 
   constructor(props) {
@@ -116,7 +118,7 @@ class ReactAlloyTouch extends Component {
 
   render() {
     const {
-      className, prefix, items, active
+      className, prefix, items, active, events,
     } = this.props;
 
     const len = items.length;
@@ -125,11 +127,11 @@ class ReactAlloyTouch extends Component {
         <div className={`${prefix}-scroller`} ref="scroller" style={{width: `${100 * len}%`}}>
           {items.map(({image, link}) => {
             if (link) {
-              return (<a key={image} href={link}>
+              return (<a key={image} href={link} {...events}>
                 <img style={{width: `${100 / len}%`}} src={image}/>
               </a>);
             }
-            return (<img key={image} style={{width: `${100 / len}%`}} src={image}/>);
+            return (<img key={image} style={{width: `${100 / len}%`}} src={image} {...events}/>);
           })}
         </div>
         <div className={`${prefix}-nav`} ref="nav">

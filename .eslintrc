@@ -186,7 +186,9 @@
     "id-blacklist": 2, // 指定一些黑名单变量，这些变量不能出现在代码中，比如 "id-blacklist": [2, "data", "err", "e", "cb", "callback"],
     "id-length": 0, // 定义变量名或属性名的最小最大长度
     "id-match": 2, // 规范变量名或属性名的命名规范
-    "indent": [2, 2], // 缩进，我们采用2个空格来缩进
+    "indent": [0, 2, {"SwitchCase": 1},
+      { "VariableDeclarator": { "var": 2, "let": 2, "const": 3 }},
+    ], // 缩进，我们采用2个空格来缩进
     "jsx-quotes": 0, // jsx属性值应该用双引号
     "key-spacing": 2, // 键值之间的空格
     "keyword-spacing": 2, // 关键字 if, else, for, while, do, switch, try, catch, finally, and with 要求有空格

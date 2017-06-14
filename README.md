@@ -195,6 +195,7 @@ render(
 | items | PropTypes.array| 轮播图|
 | active | PropTypes.number| 当前活动轮播图|
 | autoPlay | PropTypes.oneOfType([PropTypes.bool, PropTypes.number])| 是否自动播放|
+| events |  PropTypes.object| 自定义各种事件|
 
 ## Example
 

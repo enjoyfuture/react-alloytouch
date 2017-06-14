@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
 import {render} from 'react-dom';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import ReactCarousel from '../js/ReactCarousel';
 import '../sass/carousel.scss';
 import './sass/example.scss';
+
+// 初始化 tapEvent 事件, 移动端
+injectTapEventPlugin();
 
 const ReactCarouselExample = () => {
 
@@ -17,8 +21,15 @@ const ReactCarouselExample = () => {
   }, {
     image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci4.jpg'
   }];
+
+  const events = {
+    onTouchTap: () => {
+      console.info('这是个测试！');
+    }
+  };
+
   return (
-    <ReactCarousel items={items}/>
+    <ReactCarousel items={items} events={events}/>
   );
 };
 
