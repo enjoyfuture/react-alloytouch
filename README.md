@@ -174,6 +174,12 @@ const ReactCarouselExample = () => {
   }, {
     image: 'http://alloyteam.github.io/AlloyTouch/example/asset/ci4.jpg'
   }];
+  const events = {
+    onTouchTap: () => {
+      console.info('这是个测试！');
+    }
+  };
+
   return (
     <ReactCarousel items={items}/>
   );
