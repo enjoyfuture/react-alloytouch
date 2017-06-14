@@ -1,6 +1,6 @@
 # React AlloyTouch 更新日志
 
-## version 0.1.5
+## version 0.1.6
 
 * 为轮播图增加自定义事件
 
