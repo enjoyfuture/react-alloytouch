@@ -48,6 +48,7 @@ const webpackConfig = {
     carousel: ['./examples/carousel.js', webpackDevServer, hotDevServer],
     'pull-carousel': ['./examples/pull-carousel.js', webpackDevServer, hotDevServer],
     'pull-carousel2': ['./examples/pull-carousel2.js', webpackDevServer, hotDevServer],
+    'tabs-carousel': ['./examples/tabs-carousel.js', webpackDevServer, hotDevServer]
   },
 
   // 出口 让webpack把处理完成的文件放在哪里
@@ -131,6 +132,9 @@ const htmlwebpackPluginConfig = {
   'pull-carousel2': {
     title: '下拉刷新中包含轮播图2'
   },
+  'tabs-carousel': {
+    title: '自定义轮播内容+tabs'
+  }
 };
 
 for (const key in entry) {

@@ -1,5 +1,9 @@
 # React AlloyTouch 更新日志
 
+## version 0.1.7
+
+* 添加自定义轮播图内容，并添加tabs接口
+
 ## version 0.1.6
 
 * 为轮播图增加自定义事件

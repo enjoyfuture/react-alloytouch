@@ -25,6 +25,9 @@ const Index = () => {
         <li>
           <a href="./pull-carousel2.html" target="_blank">下拉刷新中包含轮播图2</a>
         </li>
+        <li>
+          <a href="./tabs-carousel.html" target="_blank">自定义轮播内容+tabs</a>
+        </li>
       </ol>
     </div>
   );
