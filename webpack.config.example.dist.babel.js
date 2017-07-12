@@ -30,7 +30,7 @@ const webpackConfig = {
     carousel: ['./examples/carousel.js'],
     'pull-carousel': ['./examples/pull-carousel.js'],
     'pull-carousel2': ['./examples/pull-carousel2.js'],
-    'tabs-carouse': ['./examples/tabs-carousel.js']
+    'tabs-carousel': ['./examples/tabs-carousel.js']
   },
 
   // 出口 让webpack把处理完成的文件放在哪里
