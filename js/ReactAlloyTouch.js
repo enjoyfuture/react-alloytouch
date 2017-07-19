@@ -32,7 +32,7 @@ class ReactAlloyTouch extends Component {
       if (typeof func === 'function') {
         options[func] = function (...args) {
           options[func](...args, wrapper, scroller);
-        }
+        };
       }
     });
 
@@ -40,7 +40,10 @@ class ReactAlloyTouch extends Component {
       Transform(scroller, true);
     }
 
-    const min = wrapper.clientHeight - scroller.scrollHeight;
+    let min = wrapper.clientHeight - scroller.scrollHeight;
+    if (min >= 0) {
+      min = 0;
+    }
 
     const alloyOptions = {
       touch: wrapper, // 反馈触摸的dom

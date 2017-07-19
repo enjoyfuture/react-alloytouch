@@ -56,7 +56,10 @@ class ReactAlloyTouch extends Component {
     Transform(scroller, true);
 
     // 设置向下滑动时，滑动的最小值，如果采用translateY，则设置 y的最小值，如果不设置 min，则可以无限制的向下滑动
-    const min = wrapper.clientHeight - scroller.scrollHeight;
+    let min = wrapper.clientHeight - scroller.scrollHeight;
+    if (min >= 0) {
+      min = 0;
+    }
 
     const alloyOptions = {
       touch: wrapper, // 反馈触摸的dom
@@ -84,7 +87,10 @@ class ReactAlloyTouch extends Component {
     // 每次页面数据更改后，需要重新设置 this.alloyTouch 的 min 值
     const {wrapper, scroller} = this.refs;
 
-    const min = wrapper.clientHeight - scroller.scrollHeight;
+    let min = wrapper.clientHeight - scroller.scrollHeight;
+    if (min >= 0) {
+      min = 0;
+    }
     this.alloyTouch.setOption('min', min);
 
     this.adjustPosition();
@@ -122,8 +128,6 @@ class ReactAlloyTouch extends Component {
       const {refreshEl, refreshIconEl} = this.refs;
       const {style} = refreshEl;
       if (value > 0) {
-        style.webkitTransform = `translate3d(0, ${value}px, 0)`;
-        style.transform = `translate3d(0, ${value}px, 0)`;
         if (value > refreshThreshold) {
           this.refreshState = 'enable';
           refreshIconEl.classList.add('rotate');
@@ -138,6 +142,9 @@ class ReactAlloyTouch extends Component {
           });
         }
       }
+
+      style.webkitTransform = `translate3d(0, ${value}px, 0)`;
+      style.transform = `translate3d(0, ${value}px, 0)`;
     }
 
     // 上滑加载更多
@@ -151,7 +158,10 @@ class ReactAlloyTouch extends Component {
 
       if (this.loadMoreState !== 'loading') {
         if (disablePullUp) {
-          loadMoreEl.style.visibility = value < min - 5 ? 'visible' : 'hidden';
+          const min = wrapper.clientHeight - scroller.scrollHeight;
+          if (min < 0) {
+            loadMoreEl.style.visibility = value < min - 5 ? 'visible' : 'hidden';
+          }
           return false;
         }
         if (value < min) {
@@ -279,16 +289,16 @@ class ReactAlloyTouch extends Component {
         clearTimeout(this.loadMoreTimoutId);
         this.loadMoreTimoutId = setTimeout(() => {
           loadMoreCallback().then(() => {
-            this.resetLoadMoreState()
+            this.resetLoadMoreState();
           }, () => {
-            this.resetLoadMoreState(true)
+            this.resetLoadMoreState(true);
           });
         }, lockInTime);
       } else {
         loadMoreCallback().then(() => {
-          this.resetLoadMoreState()
+          this.resetLoadMoreState();
         }, () => {
-          this.resetLoadMoreState(true)
+          this.resetLoadMoreState(true);
         });
       }
     } else {
@@ -326,7 +336,8 @@ class ReactAlloyTouch extends Component {
           <div ref="loadMoreIconEl"
                className={`pull-load-more-icon${!loadMoreProcessIcon || disablePullUp ? ' hide' : ''}`}></div>
           {enableText ? (
-            <div className="pull-load-more-text">{disablePullUp ? pullUpText[3] : loadMoreText}</div>) : null}
+            <div
+              className="pull-load-more-text">{disablePullUp ? pullUpText[3] : loadMoreText}</div>) : null}
         </div>
       );
     }
