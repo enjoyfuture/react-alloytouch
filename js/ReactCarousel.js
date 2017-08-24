@@ -35,7 +35,7 @@ class ReactAlloyTouch extends Component {
     const {options, items} = this.props;
 
     this.navItems = nav.querySelectorAll('a');
-    Transform(scroller);
+    Transform(scroller, true);
 
     const alloyOptions = {
       touch: wrapper, //反馈触摸的dom
