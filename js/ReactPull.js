@@ -213,6 +213,8 @@ class ReactAlloyTouch extends Component {
         }
         this.resetLoadMoreState();
       }
+    } else {
+      this.resetLoadMoreState();
     }
   };
 
