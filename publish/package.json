@@ -1,6 +1,6 @@
 {
   "name": "react-alloytouch",
-  "version": "0.2.2",
+  "version": "0.2.4",
   "author": {
     "name": "Linder Wang",
     "email": "linder0209@126.com",
@@ -23,11 +23,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/reactjs-ui/react-alloytouch.git"
+    "url": "git+https://github.com/joy-web/react-alloytouch.git"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/reactjs-ui/react-alloytouch/issues"
+    "url": "https://github.com/joy-web/react-alloytouch/issues"
   },
-  "homepage": "https://github.com/reactjs-ui/react-alloytouch#readme"
+  "homepage": "https://github.com/joy-web/react-alloytouch#readme"
 }
