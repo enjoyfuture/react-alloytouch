@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+  <title>下拉刷新中包含轮播图</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width,initial-scale=1,user-scalable=no">
+  <!-- eruda 调试模式-->
+  <script>
+    (function () {
+      if (/eruda=true/.test(window.location.href) || sessionStorage.getItem('active-eruda') === 'true') {
+        var src = '/eruda.min.js';
+        var script = document.getElementsByTagName('script')[0];
+        var js = document.createElement('script');
+        js.src = src;
+        js.async = true;
+        js.onload = function () {
+          eruda.init();
+        };
+        script.parentNode.insertBefore(js, script);
+      }
+    })();
+  </script>
+<link href="./css/pull-carousel.6898b75a75a423523e70.css" rel="stylesheet"></head>
+<body>
+<div id="layout"></div>
+<script type="text/javascript" src="./pull-carousel.9018ce1373b955a98214.bundle.js"></script></body>
+</html>
