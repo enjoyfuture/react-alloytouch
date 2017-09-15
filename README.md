@@ -245,8 +245,14 @@ git subtree add --prefix=examples-dist origin gh-pages --squash
 npm run build:examples
 git add examples-dist
 git commit -m "Update online examples"
+git subtree pull --prefix=examples-dist origin gh-pages
 git subtree push --prefix=examples-dist origin gh-pages --squash
 git push
+```
+
+4 使用以下命令一键发布在线例子
+```bash
+npm run examples:publish
 ```
 
 ## Build
