@@ -1,5 +1,3 @@
 # Ignore files
 .idea
 node_modules
-publish
-!publish/package.json
