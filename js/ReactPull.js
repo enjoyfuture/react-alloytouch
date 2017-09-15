@@ -23,18 +23,22 @@ class ReactAlloyTouch extends Component {
     loadMoreCallback: PropTypes.func, // 加载更多回调函数
     pullUpText: PropTypes.array, // 上拉显示文本内容
     loadMoreProcessIcon: PropTypes.bool, // 加载更多过程图标
-    disablePullUp: PropTypes.bool, // 对于上拉加载更多时，如果没有更多记录时，禁止上滑
+    disablePullUp: PropTypes.bool, // 对于上拉加载更多时，如果没有更多记录时，禁止上滑，
+    loadedRecoilTime: PropTypes.number, // 加载完更多数据回弹时间
+    moveForwardOffset: PropTypes.number, // 加载完更多数据时，向前推进的距离
   };
 
   static defaultProps = {
     className: '',
     refreshThreshold: 50,
-    loadMoreThrottle: 10,
+    loadMoreThrottle: 30,
     lockInTime: 0,
     pullDownText: ['下拉刷新', '松开刷新数据', '加载中，请稍后...'],
     pullUpText: ['上滑加载更多...', '松开加载数据', '加载中，请稍后...', '没有更多数据了'],
     enableText: true,
-    loadMoreProcessIcon: false
+    loadMoreProcessIcon: true,
+    loadedRecoilTime: 300,
+    moveForwardOffset: 50
   };
 
   constructor(props) {
@@ -71,6 +75,7 @@ class ReactAlloyTouch extends Component {
       min,
       max: 0, // 不必需,滚动属性的最大值
       step: 40, // 用于校正到step的整数倍
+      maxSpeed: 2, //不必需，触摸反馈的最大速度限制
       touchStart: this.touchStart,
       touchMove: this.touchMove,
       touchEnd: this.touchEnd,
@@ -112,7 +117,14 @@ class ReactAlloyTouch extends Component {
   touchStart = (e, value) => {
     if (this.props.loadMore) {
       // 记录当前滑动值
-      this.offsetStart = value;
+      const {wrapper, scroller} = this.refs;
+      let heightOffset = wrapper.clientHeight - scroller.scrollHeight;
+      if (heightOffset > 0) {
+        heightOffset = 0;
+      }
+
+      this.offsetStart = heightOffset;
+      this.moveValue = value;
     }
   };
 
@@ -164,9 +176,9 @@ class ReactAlloyTouch extends Component {
           }
           return false;
         }
-        if (value < min) {
+        if (value < min && value < 0) {
           style.visibility = 'visible';
-          if (value < min - loadMoreThrottle) {
+          if (Math.abs(value - this.moveValue) > loadMoreThrottle) {
             this.loadMoreState = 'enable';
             loadMoreIconEl.classList.add('rotate');
             this.setState({
@@ -190,31 +202,29 @@ class ReactAlloyTouch extends Component {
   touchEnd = (e, value) => {
     const {refresh, loadMore, disablePullUp} = this.props;
     // 刷新
-    if (refresh && value > 0) {
-      if (this.refreshState === 'enable') {
-        this.refresh(e);
-      } else {
-        this.resetRefreshState();
+    if (value > 0) {
+      if (refresh) {
+        if (this.refreshState === 'enable') {
+          this.refresh(e);
+        } else {
+          this.resetRefreshState();
+        }
+        // 阻止默认的滑动
+        return false;
       }
-      // 阻止默认的滑动
-      return false;
+      return;
     }
 
     // 加载更多
-    if (loadMore && !disablePullUp) {
-      const {wrapper, scroller} = this.refs;
-      const min = wrapper.clientHeight - scroller.scrollHeight;
-      if (value < min) {
-        if (this.loadMoreState === 'enable') {
-          this.loadMore(e);
-          this.offsetEnd = value;
-          // 阻止默认的滑动
-          return false;
-        }
-        this.resetLoadMoreState();
+    const {wrapper, scroller} = this.refs;
+    const min = wrapper.clientHeight - scroller.scrollHeight;
+    if (value < min) {
+      if (loadMore && !disablePullUp && this.loadMoreState === 'enable') {
+        this.loadMore(e);
+        // 阻止默认的滑动
+        return false;
       }
-    } else {
-      this.resetLoadMoreState();
+      this.resetLoadMoreState({moveTo: false});
     }
   };
 
@@ -251,21 +261,24 @@ class ReactAlloyTouch extends Component {
 
   // 恢复刷新原始状态
   resetRefreshState = () => {
-    const {pullDownText} = this.props;
+    const {pullDownText, refresh} = this.props;
     this.refreshState = null;
-    const {refreshEl, refreshIconEl} = this.refs;
-    const {style} = refreshEl;
-    refreshIconEl.classList.remove('rotate');
-    refreshIconEl.classList.remove('loading');
+    if (refresh) {
+      const {refreshEl, refreshIconEl} = this.refs;
+      const {style} = refreshEl;
+      refreshIconEl.classList.remove('rotate');
+      refreshIconEl.classList.remove('loading');
 
-    style.transition = '';
-    style.webkitTransition = '';
-    style.webkitTransform = 'translate3d(0, 0, 0)';
-    style.transform = 'translate3d(0, 0, 0)';
+      style.transition = '';
+      style.webkitTransition = '';
+      style.webkitTransform = 'translate3d(0, 0, 0)';
+      style.transform = 'translate3d(0, 0, 0)';
 
-    this.setState({
-      refreshText: pullDownText[0]
-    });
+      this.setState({
+        refreshText: pullDownText[0]
+      });
+    }
+
     this.alloyTouch.to(0);
   };
 
@@ -291,39 +304,48 @@ class ReactAlloyTouch extends Component {
         clearTimeout(this.loadMoreTimoutId);
         this.loadMoreTimoutId = setTimeout(() => {
           loadMoreCallback().then(() => {
-            this.resetLoadMoreState();
+            this.resetLoadMoreState({adjust: true});
           }, () => {
-            this.resetLoadMoreState(true);
+            this.resetLoadMoreState({});
           });
         }, lockInTime);
       } else {
         loadMoreCallback().then(() => {
-          this.resetLoadMoreState();
+          this.resetLoadMoreState({adjust: true});
         }, () => {
-          this.resetLoadMoreState(true);
+          this.resetLoadMoreState({});
         });
       }
     } else {
-      this.resetLoadMoreState();
+      this.resetLoadMoreState({});
     }
   };
 
   // 恢复加载更多原始状态
-  resetLoadMoreState = (fail) => {
-    const {pullUpText} = this.props;
+  resetLoadMoreState = ({adjust = false, moveTo = true}) => {
+    const {pullUpText, loadedRecoilTime, moveForwardOffset, loadMore} = this.props;
     this.loadMoreState = null;
-    const {loadMoreEl, loadMoreIconEl} = this.refs;
-    loadMoreIconEl.classList.remove('rotate');
-    loadMoreIconEl.classList.remove('loading');
+    if (loadMore) {
+      const {loadMoreEl, loadMoreIconEl} = this.refs;
+      loadMoreIconEl.classList.remove('rotate');
+      loadMoreIconEl.classList.remove('loading');
 
-    this.setState({
-      loadMoreText: pullUpText[0]
-    });
-    loadMoreEl.style.visibility = 'hidden';
-    if (this.offsetStart !== undefined || this.offsetEnd !== undefined) {
-      const offset = fail ? this.offsetStart : this.offsetEnd;
-      if (offset) {
-        this.alloyTouch.to(offset);
+      this.setState({
+        loadMoreText: pullUpText[0]
+      });
+      loadMoreEl.style.visibility = 'hidden';
+    }
+
+    if (this.offsetStart !== undefined) {
+      let offset;
+      if (adjust) {
+        offset = this.offsetStart < -moveForwardOffset ? this.offsetStart - moveForwardOffset : this.offsetStart;
+      } else {
+        offset = this.offsetStart;
+      }
+
+      if (moveTo) {
+        this.alloyTouch.to(offset, loadedRecoilTime);
       }
     }
   };

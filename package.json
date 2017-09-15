@@ -1,6 +1,6 @@
 {
   "name": "react-alloytouch",
-  "version": "0.2.4",
+  "version": "0.3.2",
   "author": {
     "name": "Linder Wang",
     "email": "linder0209@126.com",
@@ -42,7 +42,7 @@
     "autoprefixer": "^7.1.4",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^8.0.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-flow-comments": "^6.22.0",
@@ -75,8 +75,8 @@
     "require-dir": "^0.3.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
-    "webpack": "^3.5.6",
-    "webpack-dev-server": "^2.7.1"
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.8.2"
   },
   "engines": {
     "node": ">=6.9.1"

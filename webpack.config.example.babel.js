@@ -4,7 +4,7 @@ import HtmlwebpackPlugin from 'html-webpack-plugin';
 import precss from 'precss';
 import autoprefixer from 'autoprefixer';
 
-const ip = 'localhost';
+const ip = '127.0.0.1';
 const port = 9090;
 const hotDevServer = 'webpack/hot/dev-server';
 // https://github.com/webpack/webpack-dev-server

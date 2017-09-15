@@ -147,6 +147,8 @@ render(
 | pullUpText  | PropTypes.array | 上拉显示文本内容 |
 | loadMoreProcessIcon  | PropTypes.bool | 加载更多过程图标 |
 | disablePullUp  | PropTypes.bool | 对于上拉加载更多时，如果没有更多记录时，禁止上滑 |
+| loadedRecoilTime| PropTypes.number|  加载完更多数据回弹时间| 
+|  moveForwardOffset|  PropTypes.number|  加载完更多数据时，向前推进的距离| 
 
 对于 AlloyTouch 组件选项 options 设置，看[官方说明](https://github.com/AlloyTeam/AlloyTouch)
 

@@ -12,7 +12,7 @@ class ReactPullExample extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: 30,
+      items: 2,
       disablePullUp: false
     };
   }
@@ -21,7 +21,7 @@ class ReactPullExample extends Component {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         let result = false;
-        if (Math.random() > 0.2) {
+        if (Math.random() > 0.5) {
           result = true;
         }
         if (result) {
@@ -37,8 +37,9 @@ class ReactPullExample extends Component {
       }, 1000);
     }).then(() => {
       console.info('刷新成功！');
-    }, () => {
+    }, (error) => {
       console.info('刷新失败！');
+      Promise.error(error);
     });
   };
 
@@ -46,13 +47,14 @@ class ReactPullExample extends Component {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         let result = false;
-        if (Math.random() > 0.2) {
+        if (Math.random() > 0.5) {
           result = true;
         }
         if (result) {
+          const {items} = this.state;
           this.setState({
-            items: this.state.items + 10,
-            disablePullUp: this.state.items >= 60
+            items: items >= 60 ? (items + 1) : (items + 10),
+            disablePullUp: items >= 60
           }, () => {
             resolve();
           });
@@ -62,8 +64,9 @@ class ReactPullExample extends Component {
       }, 1000);
     }).then(() => {
       console.info('加载更多成功！');
-    }, () => {
+    }, (error) => {
       console.info('加载更多失败！');
+      Promise.error(error);
     });
   };
 
@@ -104,5 +107,5 @@ class ReactPullExample extends Component {
 }
 
 render(
-  <ReactPullExample />, document.getElementById('layout')
+  <ReactPullExample/>, document.getElementById('layout')
 );

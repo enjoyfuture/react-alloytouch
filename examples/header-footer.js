@@ -12,7 +12,7 @@ class HeaderFooter extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: 30,
+      items: 2,
       disablePullUp: false
     };
   }
