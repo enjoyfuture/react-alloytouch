@@ -155,6 +155,7 @@ class ReactAlloyTouch extends Component {
         }
       }
 
+      style.opacity = 1;
       style.webkitTransform = `translate3d(0, ${value}px, 0)`;
       style.transform = `translate3d(0, ${value}px, 0)`;
     }
@@ -269,6 +270,7 @@ class ReactAlloyTouch extends Component {
       refreshIconEl.classList.remove('rotate');
       refreshIconEl.classList.remove('loading');
 
+      style.opacity = 0;
       style.transition = '';
       style.webkitTransition = '';
       style.webkitTransform = 'translate3d(0, 0, 0)';
@@ -379,7 +381,7 @@ class ReactAlloyTouch extends Component {
         {header ? (<div className="pull-header" ref="header">{header}</div>) : null}
         <div ref="alloyBody" className="pull-body">
           {
-            refresh ? (<div ref="refreshEl" className="pull-refresh">
+            refresh ? (<div ref="refreshEl" className="pull-refresh" style={{opacity: 0}}>
               <div className="pull-refresh-icon-wrapper">
                 <div ref="refreshIconEl" className="pull-refresh-icon"></div>
               </div>

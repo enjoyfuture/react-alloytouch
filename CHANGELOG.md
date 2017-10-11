@@ -1,5 +1,11 @@
 # React AlloyTouch 更新日志
 
+## version 0.4.0
+
+* 去掉了 babel-preset-es2015，改用 babel-preset-env
+* 升级到 react 16
+* 默认下拉刷新和上拉加载隐藏显示，当需要的时候再显示
+
 ## version 0.3.2
 
 * 修改了下拉刷新，有时不能正常滑到底部的 bug
