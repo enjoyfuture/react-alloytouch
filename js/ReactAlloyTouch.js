@@ -68,7 +68,7 @@ class ReactAlloyTouch extends Component {
 
   componentDidUpdate() {
     const {updateFunc} = this.props;
-    const {wrapper, scroller} = this.refs;
+    const {wrapper, scroller} = this;
     if (typeof updateFunc === 'function') {
       updateFunc(this.alloyTouch, wrapper, scroller);
     }
