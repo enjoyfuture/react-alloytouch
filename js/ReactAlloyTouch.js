@@ -68,25 +68,32 @@ class ReactAlloyTouch extends Component {
 
   componentDidUpdate() {
     const {updateFunc} = this.props;
-    const {wrapper, scroller} = this.refs;
+    const {wrapper, scroller} = this;
     if (typeof updateFunc === 'function') {
       updateFunc(this.alloyTouch, wrapper, scroller);
     }
   }
 
-  render() {
-    const {
-      children, className, prefix
-    } = this.props;
+    handleWrapper=(wrapper) => {
+        this.wrapper = wrapper
+    }
+    handleScroller=(scroller) => {
+        this.scroller = scroller
+    }
 
-    return (
-      <div className={`${prefix}-wrapper ${className || ''}`} ref="wrapper">
-        <div className={`${prefix}-scroller`} ref="scroller">
-          {children}
-        </div>
-      </div>
-    );
-  }
+    render() {
+        const {
+            children, className, prefix
+        } = this.props;
+
+        return (
+            <div className={`${prefix}-wrapper ${className || ''}`} ref={this.handleWrapper}>
+              <div className={`${prefix}-scroller`} ref={this.handleScroller}>
+                  {children}
+              </div>
+            </div>
+        );
+    }
 }
 
 export default ReactAlloyTouch;
