@@ -24,7 +24,7 @@ class ReactAlloyTouch extends Component {
   };
 
   componentDidMount() {
-    const {wrapper, scroller} = this.refs;
+    const {wrapper, scroller} = this;
     const {options, transform, extensionFunc} = this.props;
 
     // 处理 options 中函数，返回 wrapper 和 scroller
@@ -74,26 +74,26 @@ class ReactAlloyTouch extends Component {
     }
   }
 
-    handleWrapper=(wrapper) => {
-        this.wrapper = wrapper
-    }
-    handleScroller=(scroller) => {
-        this.scroller = scroller
-    }
+  handleWrapper = (wrapper) => {
+    this.wrapper = wrapper;
+  };
+  handleScroller = (scroller) => {
+    this.scroller = scroller;
+  };
 
-    render() {
-        const {
-            children, className, prefix
-        } = this.props;
+  render() {
+    const {
+      children, className, prefix,
+    } = this.props;
 
-        return (
-            <div className={`${prefix}-wrapper ${className || ''}`} ref={this.handleWrapper}>
-              <div className={`${prefix}-scroller`} ref={this.handleScroller}>
-                  {children}
-              </div>
-            </div>
-        );
-    }
+    return (
+      <div className={`${prefix}-wrapper ${className || ''}`} ref={this.handleWrapper}>
+        <div className={`${prefix}-scroller`} ref={this.handleScroller}>
+          {children}
+        </div>
+      </div>
+    );
+  }
 }
 
 export default ReactAlloyTouch;

@@ -1,5 +1,9 @@
 # React AlloyTouch 更新日志
 
+## version 0.4.1
+
+* 修复了 bug #4 ref 采用建议的回调函数写法而非字符串
+
 ## version 0.4.0
 
 * 去掉了 babel-preset-es2015，改用 babel-preset-env
